@@ -6,6 +6,13 @@ document.querySelector("#btnLoad").addEventListener("click", () => {
     document.querySelector("#dinoImage").remove();
   }
 
+  const spinner = `
+    <div id="spinner" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  `;
+  document.querySelector("#dinoWrapper").innerHTML = spinner;
+
   nameAndImage();
 });
 
@@ -14,6 +21,7 @@ async function nameAndImage() {
   const img = await getDinoImage();
 
   await Promise.all([dinoNameDiv, img]).then(([dinoNameDiv, img]) => {
+    document.querySelector("#spinner").remove();
     document.querySelector("#dinoWrapper").appendChild(dinoNameDiv);
     document.querySelector("#dinoWrapper").appendChild(img);
   });
